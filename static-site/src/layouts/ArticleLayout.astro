@@ -1,0 +1,89 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Giscus from '../components/Giscus.astro'
+import type { ArticleFrontmatter } from '../lib/articles'
+import { site } from '../config'
+
+interface Props {
+  frontmatter: ArticleFrontmatter
+}
+
+const { frontmatter } = Astro.props
+---
+
+<BaseLayout
+  title={`${frontmatter.title} · ${site.title}`}
+  description={frontmatter.summary ?? site.title}
+>
+  <article class="panel">
+    <h1 class="title">
+      {frontmatter.title}
+      {frontmatter.recommend && <span class="tag">精选</span>}
+    </h1>
+
+    <div class="meta detail-meta">
+      {frontmatter.category && <span>{frontmatter.category}</span>}
+      <span>{frontmatter.date}</span>
+      {typeof frontmatter.views === 'number' && <span>阅读 {frontmatter.views}</span>}
+      {typeof frontmatter.likes === 'number' && <span>点赞 {frontmatter.likes}</span>}
+      {typeof frontmatter.comments === 'number' && <span>评论 {frontmatter.comments}</span>}
+    </div>
+
+    <div class="markdown-body">
+      <slot />
+    </div>
+
+    <Giscus />
+
+    <p class="back">
+      <a href="/articles">返回文章列表</a>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-size: 1.45rem;
+    line-height: 1.4;
+  }
+
+  .detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--kdr-border);
+  }
+
+  .markdown-body {
+    margin-top: 22px;
+  }
+
+  .back {
+    margin-top: 22px;
+  }
+
+  .back a {
+    color: var(--kdr-text-soft);
+    font-size: 0.88rem;
+  }
+
+  .back a:hover {
+    color: var(--kdr-text);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0 6px;
+    border: 1px solid #e6a23c;
+    border-radius: 4px;
+    color: #b88230;
+    font-size: 0.72rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+</style>

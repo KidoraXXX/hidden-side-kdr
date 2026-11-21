@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import About from '../md/about.md'
+import { site } from '../config'
+---
+
+<BaseLayout title={`关于 · ${site.title}`}>
+  <section class="panel">
+    <div class="profile">
+      <img class="avatar" src={site.authorAvatar} alt={site.author} />
+      <div>
+        <h2 class="name">{site.author}</h2>
+        <p class="muted">你可以叫我 KDR / 抑制器 / KidoraXXX。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title">关于</h2>
+    <div class="markdown-body">
+      <About />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--kdr-border);
+  }
+
+  .name {
+    margin: 0 0 4px;
+    font-size: 1.15rem;
+  }
+
+  @media (max-width: 640px) {
+    .profile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

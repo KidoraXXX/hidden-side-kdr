@@ -1,0 +1,44 @@
+---
+import ArticleCard from '../components/ArticleCard.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Notice from '../md/notice.md'
+import { site } from '../config'
+import { recent, recommended } from '../lib/articles'
+---
+
+<BaseLayout>
+  <p class="lead">{site.subtitle}</p>
+
+  <section class="panel">
+    <h2 class="panel__title">公告</h2>
+    <div class="markdown-body">
+      <Notice />
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title">推荐文章</h2>
+    {
+      recommended.length > 0 ? (
+        recommended.map((article) => <ArticleCard article={article} />)
+      ) : (
+        <p class="muted">还没有标记精选文章</p>
+      )
+    }
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title">最近文章</h2>
+    {recent.map((article) => <ArticleCard article={article} />)}
+  </section>
+</BaseLayout>
+
+<style>
+  .lead {
+    margin: 0 0 20px;
+    text-align: center;
+    color: var(--kdr-text-soft);
+    font-size: 0.98rem;
+    letter-spacing: 0.04em;
+  }
+</style>

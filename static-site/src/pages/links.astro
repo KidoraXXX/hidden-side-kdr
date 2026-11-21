@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { links, site } from '../config'
+---
+
+<BaseLayout title={`友链 · ${site.title}`}>
+  <section class="panel">
+    <h2 class="panel__title">友链</h2>
+
+    <div class="grid">
+      {
+        links.map((link) => (
+          <a class="link-card" href={link.url} target="_blank" rel="noopener noreferrer">
+            {link.logo ? (
+              <img class="logo" src={link.logo} alt={link.name} />
+            ) : (
+              <div class="logo logo--empty">{link.name.slice(0, 1)}</div>
+            )}
+            <div class="body">
+              <div class="name">{link.name}</div>
+              <div class="desc muted">{link.description || link.url}</div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    {links.length === 0 && <p class="muted">还没有添加友链</p>}
+  </section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--kdr-border);
+    border-radius: 8px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .link-card:hover {
+    border-color: #c9c9c9;
+    background: #fafafa;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .logo--empty {
+    display: grid;
+    place-items: center;
+    background: #efefef;
+    color: var(--kdr-text-soft);
+    font-size: 1.05rem;
+  }
+
+  .body {
+    min-width: 0;
+  }
+
+  .name {
+    font-size: 0.94rem;
+    font-weight: 600;
+  }
+
+  .desc {
+    overflow: hidden;
+    font-size: 0.82rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>

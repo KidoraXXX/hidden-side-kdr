@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Giscus from '../components/Giscus.astro'
+import { giscus, site } from '../config'
+---
+
+<BaseLayout title={`留言 · ${site.title}`}>
+  <section class="panel">
+    <p class="hint muted">留言需要 GitHub 账号，登录后即可发表。</p>
+    <Giscus
+      title="留言"
+      category={giscus.guestbook.category}
+      categoryId={giscus.guestbook.categoryId}
+      mapping={giscus.guestbook.mapping}
+      term={giscus.guestbook.term}
+    />
+  </section>
+</BaseLayout>
+
+<style>
+  .hint {
+    margin: 0 0 18px;
+    font-size: 0.86rem;
+  }
+</style>

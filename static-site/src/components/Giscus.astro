@@ -1,0 +1,71 @@
+---
+import { giscus } from '../config'
+
+interface Props {
+  /** 区块标题，文章页为「评论」，留言页为「留言」 */
+  title?: string
+  category?: string
+  categoryId?: string
+  mapping?: 'pathname' | 'specific'
+  /** mapping=specific 时必填，固定讨论标识 */
+  term?: string
+}
+
+const {
+  title = '评论',
+  category = giscus.comments.category,
+  categoryId = giscus.comments.categoryId,
+  mapping = 'pathname',
+  term,
+} = Astro.props
+
+const enabled = Boolean(giscus.repo && giscus.repoId && categoryId)
+
+const termAttribute = term ? `data-term="${term}"` : ''
+
+/**
+ * 用 set:html 注入原始 script 标签。
+ *
+ * 直接写 <script src="https://giscus.app/client.js"> 会被 Astro 当成模块解析，
+ * 报 “Cannot find package 'https:'”。set:html 让这段 HTML 原样输出，不经过打包器。
+ */
+const giscusHtml = `<script src="https://giscus.app/client.js"
+  data-repo="${giscus.repo}"
+  data-repo-id="${giscus.repoId}"
+  data-category="${category}"
+  data-category-id="${categoryId}"
+  data-mapping="${mapping}"
+  ${termAttribute}
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="${giscus.inputPosition}"
+  data-theme="${giscus.theme}"
+  data-lang="zh-CN"
+  crossorigin="anonymous"
+  async></script>`
+---
+
+<section class="comments">
+  <h2 class="panel__title">{title}</h2>
+
+  {
+    enabled ? (
+      <div set:html={giscusHtml} />
+    ) : (
+      <p class="hint muted">评论功能待配置 Giscus 后启用。</p>
+    )
+  }
+</section>
+
+<style>
+  .comments {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .hint {
+    margin: 0;
+    font-size: 0.86rem;
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import ArticleCard from '../../components/ArticleCard.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { site } from '../../config'
+import { articles } from '../../lib/articles'
+---
+
+<BaseLayout title={`文章 · ${site.title}`}>
+  <section class="panel">
+    <h2 class="panel__title">文章</h2>
+
+    {
+      articles.length > 0 ? (
+        articles.map((article) => <ArticleCard article={article} />)
+      ) : (
+        <p class="muted">还没有文章</p>
+      )
+    }
+  </section>
+</BaseLayout>

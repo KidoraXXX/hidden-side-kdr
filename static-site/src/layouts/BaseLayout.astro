@@ -1,0 +1,47 @@
+---
+import SiteHeader from '../components/SiteHeader.astro'
+import { site } from '../config'
+import '../styles/main.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { title = site.title, description = `${site.author} 的个人博客` } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/img/CreatorAvatar.webp" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader />
+
+    <main class="page-container">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <span>{site.title}</span>
+      {site.icp && (
+        <span class="icp">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+            {site.icp}
+          </a>
+        </span>
+      )}
+    </footer>
+  </body>
+</html>
+
+<style>
+  .icp {
+    margin-left: 12px;
+  }
+</style>

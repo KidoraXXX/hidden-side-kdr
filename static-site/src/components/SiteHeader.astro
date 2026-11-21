@@ -1,0 +1,105 @@
+---
+import { site } from '../config'
+
+const path = Astro.url.pathname
+const navItems = [
+  { path: '/', label: '主页' },
+  { path: '/about', label: '关于' },
+  { path: '/articles', label: '文章' },
+  { path: '/archive', label: '归档' },
+  { path: '/links', label: '友链' },
+  { path: '/guestbook', label: '留言' },
+]
+
+const isActive = (itemPath: string) =>
+  itemPath === '/' ? path === '/' : path.startsWith(itemPath)
+---
+
+<header class="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <h1 class="hero__title">{site.title}</h1>
+</header>
+
+<nav class="nav">
+  {
+    navItems.map((item) => (
+      <a
+        href={item.path}
+        class:list={['nav__link', { 'nav__link--active': isActive(item.path) }]}
+      >
+        {item.label}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 38vh;
+    min-height: 200px;
+    max-height: 380px;
+    overflow: hidden;
+    background: #dddddd;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background: url('/img/TrimmedBgPicture.webp') center 20% / cover no-repeat;
+    filter: grayscale(0.45);
+    opacity: 0.85;
+  }
+
+  .hero__title {
+    position: relative;
+    margin: 0;
+    padding: 0 16px;
+    color: #000;
+    font-family: 'SimSun', 'Songti SC', 'STSong', serif;
+    font-size: clamp(1.9rem, 5.5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 16px;
+    background: var(--kdr-surface);
+    border-bottom: 1px solid var(--kdr-border);
+  }
+
+  .nav__link {
+    padding: 13px 16px;
+    font-size: 0.92rem;
+    color: var(--kdr-text-soft);
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .nav__link:hover {
+    color: var(--kdr-text);
+  }
+
+  .nav__link--active {
+    color: var(--kdr-text);
+    border-bottom-color: var(--kdr-text);
+  }
+
+  @media (max-width: 720px) {
+    .nav {
+      padding: 0 4px;
+    }
+
+    .nav__link {
+      padding: 11px 10px;
+      font-size: 0.86rem;
+    }
+  }
+</style>

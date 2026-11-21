@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="页面不存在">
+  <section class="panel not-found">
+    <h1>404</h1>
+    <p class="muted">这个页面不存在</p>
+    <a class="back" href="/">回到主页</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding: 60px 24px;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 3rem;
+    letter-spacing: 0.08em;
+  }
+
+  .back {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 7px 18px;
+    border: 1px solid var(--kdr-border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .back:hover {
+    background: #fafafa;
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+import type { ArticleEntry } from '../lib/articles'
+
+interface Props {
+  article: ArticleEntry
+}
+
+const { article } = Astro.props
+---
+
+<article class="card">
+  <a class="card__link" href={article.url}>
+    <div class="card__head">
+      <h3 class="card__title">
+        {article.title}
+        {article.recommend && <span class="tag">精选</span>}
+      </h3>
+
+      <div class="card__meta meta">
+        {article.category && <span>{article.category}</span>}
+        <span>{article.date}</span>
+        {typeof article.views === 'number' && <span>阅读 {article.views}</span>}
+        {typeof article.likes === 'number' && <span>点赞 {article.likes}</span>}
+        {typeof article.comments === 'number' && <span>评论 {article.comments}</span>}
+      </div>
+    </div>
+
+    {article.summary && <p class="card__summary">{article.summary}</p>}
+  </a>
+</article>
+
+<style>
+  .card {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--kdr-border);
+  }
+
+  .card:last-child {
+    border-bottom: none;
+  }
+
+  .card__link {
+    display: block;
+  }
+
+  .card__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 6px;
+    font-size: 1.02rem;
+    font-weight: 600;
+    transition: color 0.15s ease;
+  }
+
+  .card__link:hover .card__title {
+    color: #0a6cff;
+  }
+
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .card__summary {
+    margin: 10px 0 0;
+    color: var(--kdr-text-soft);
+    font-size: 0.9rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0 6px;
+    border: 1px solid #e6a23c;
+    border-radius: 4px;
+    color: #b88230;
+    font-size: 0.72rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+</style>

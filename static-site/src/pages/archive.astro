@@ -1,0 +1,75 @@
+---
+import ArticleCard from '../components/ArticleCard.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { site } from '../config'
+import { articles, categories } from '../lib/articles'
+---
+
+<BaseLayout title={`归档 · ${site.title}`}>
+  <section class="panel">
+    <h2 class="panel__title">文章归档</h2>
+
+    <div class="chips">
+      {categories.map((category) => (
+        <a class="chip" href={`#cat-${encodeURIComponent(category)}`}>
+          {category}
+        </a>
+      ))}
+    </div>
+
+    {
+      categories.length > 0 ? (
+        categories.map((category) => (
+          <section id={`cat-${encodeURIComponent(category)}`} class="group">
+            <h3 class="group__title">{category}</h3>
+            {articles
+              .filter((article) => article.category === category)
+              .map((article) => (
+                <ArticleCard article={article} />
+              ))}
+          </section>
+        ))
+      ) : (
+        articles.map((article) => <ArticleCard article={article} />)
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .chip {
+    padding: 5px 14px;
+    border: 1px solid var(--kdr-border);
+    border-radius: 999px;
+    color: var(--kdr-text-soft);
+    font-size: 0.86rem;
+    transition: all 0.15s ease;
+  }
+
+  .chip:hover {
+    color: var(--kdr-text);
+    border-color: #c9c9c9;
+  }
+
+  .group {
+    margin-top: 22px;
+  }
+
+  .group:first-of-type {
+    margin-top: 0;
+  }
+
+  .group__title {
+    margin: 0 0 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--kdr-border);
+    font-size: 1.02rem;
+  }
+</style>
