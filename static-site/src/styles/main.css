@@ -5,6 +5,38 @@
   --kdr-border: #e6e6e6;
   --kdr-surface: #ffffff;
   --kdr-page-bg: #f6f6f4;
+  --kdr-link: #0a6cff;
+  --kdr-hover-bg: #fafafa;
+  --kdr-hover-border: #c9c9c9;
+  --kdr-placeholder-bg: #efefef;
+  --kdr-code-bg: #f6f8fa;
+  --kdr-code-inline-bg: #f0f0f0;
+  --kdr-tag-border: #e6a23c;
+  --kdr-tag-text: #b88230;
+
+  color-scheme: light;
+}
+
+/*
+ * 夜间模式：只替换 UI 配色，不反转图片、头像、背景图和大标题。
+ * 用 filter: invert() 会把照片和 Giscus 一并扭曲，还得逐个排除，不如直接给色值。
+ */
+:root[data-theme='dark'] {
+  --kdr-text: #e8e8e8;
+  --kdr-text-soft: #a3a3a3;
+  --kdr-border: #303034;
+  --kdr-surface: #1a1a1c;
+  --kdr-page-bg: #111113;
+  --kdr-link: #7ab0ff;
+  --kdr-hover-bg: #232327;
+  --kdr-hover-border: #3f3f45;
+  --kdr-placeholder-bg: #2b2b2f;
+  --kdr-code-bg: #16181c;
+  --kdr-code-inline-bg: #26282c;
+  --kdr-tag-border: #8a6a2f;
+  --kdr-tag-text: #e0b268;
+
+  color-scheme: dark;
 }
 
 * {
@@ -116,7 +148,7 @@ a {
   overflow-x: auto;
   padding: 14px 16px;
   border-radius: 8px;
-  background: #f6f8fa;
+  background: var(--kdr-code-bg);
   font-size: 0.88rem;
 }
 
@@ -127,7 +159,7 @@ a {
 .markdown-body :not(pre) > code {
   padding: 0.15em 0.4em;
   border-radius: 4px;
-  background: #f0f0f0;
+  background: var(--kdr-code-inline-bg);
   font-size: 0.9em;
 }
 

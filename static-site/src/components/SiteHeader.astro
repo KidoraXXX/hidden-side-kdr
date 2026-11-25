@@ -31,7 +31,43 @@ const isActive = (itemPath: string) =>
       </a>
     ))
   }
+
+  <button
+    id="kdr-theme-toggle"
+    class="theme-toggle"
+    type="button"
+    aria-label="切换夜间模式"
+    title="切换夜间模式"
+  >
+    <span class="theme-toggle__label theme-toggle__label--to-dark">夜间</span>
+    <span class="theme-toggle__label theme-toggle__label--to-light">日间</span>
+  </button>
 </nav>
+
+<script>
+  const button = document.getElementById('kdr-theme-toggle')
+
+  if (button) {
+    button.addEventListener('click', () => {
+      const root = document.documentElement
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark'
+
+      if (next === 'dark') {
+        root.dataset.theme = 'dark'
+      } else {
+        delete root.dataset.theme
+      }
+
+      try {
+        localStorage.setItem('kdr-theme', next)
+      } catch {
+        /* 无法持久化时仅本次生效 */
+      }
+
+      window.dispatchEvent(new CustomEvent('kdr:themechange', { detail: next }))
+    })
+  }
+</script>
 
 <style>
   .hero {
@@ -92,6 +128,39 @@ const isActive = (itemPath: string) =>
     border-bottom-color: var(--kdr-text);
   }
 
+  .theme-toggle {
+    align-self: center;
+    margin-left: 6px;
+    padding: 4px 11px;
+    border: 1px solid var(--kdr-border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--kdr-text-soft);
+    font: inherit;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .theme-toggle:hover {
+    color: var(--kdr-text);
+    border-color: var(--kdr-hover-border);
+  }
+
+  /* 默认显示「夜间」，切到深色后显示「日间」 */
+  .theme-toggle__label--to-light {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle__label--to-dark {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle__label--to-light {
+    display: inline;
+  }
+
   @media (max-width: 720px) {
     .nav {
       padding: 0 4px;
@@ -100,6 +169,11 @@ const isActive = (itemPath: string) =>
     .nav__link {
       padding: 11px 10px;
       font-size: 0.86rem;
+    }
+
+    .theme-toggle {
+      padding: 3px 9px;
+      font-size: 0.75rem;
     }
   }
 </style>

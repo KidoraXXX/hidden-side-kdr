@@ -19,6 +19,19 @@ const { title = site.title, description = `${site.author} 的个人博客` } = A
     <meta name="description" content={description} />
     <link rel="icon" href="/img/CreatorAvatar.webp" />
     <title>{title}</title>
+
+    <!-- 在首屏绘制前应用已保存的主题，避免夜间模式闪白 -->
+    <script is:inline>
+      (() => {
+        try {
+          if (localStorage.getItem('kdr-theme') === 'dark') {
+            document.documentElement.dataset.theme = 'dark'
+          }
+        } catch {
+          /* localStorage 不可用时保持默认亮色 */
+        }
+      })()
+    </script>
   </head>
   <body>
     <SiteHeader />
