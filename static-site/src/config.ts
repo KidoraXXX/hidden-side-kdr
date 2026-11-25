@@ -39,7 +39,7 @@ export const links: LinkItem[] = [
   },
   {
     name: 'dayDReam',
-    url: 'https://dr-blog.top.com',
+    url: 'https://dr-blog.top',
     description: 'CTF大佬DR',
     logo: '/img/links/dayDReam.webp',
   }
