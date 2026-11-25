@@ -42,6 +42,18 @@ export const links: LinkItem[] = [
     url: 'https://dr-blog.top',
     description: 'CTF大佬DR',
     logo: '/img/links/dayDReam.webp',
+  }, 
+  {
+    name: '氧烷zues',
+    url: 'https://keronshans.top',
+    description: '神秘ACM女队，🐖pig god',
+    logo: '/img/links/zues.jpg',
+  },
+  {
+    name: 'hill',
+    url: 'https://mutsumi.moe',
+    description: 'AI全栈大手子，🐧掌管木子米的神',
+    logo: '/img/links/hill.jpg',
   }
 ]
 
