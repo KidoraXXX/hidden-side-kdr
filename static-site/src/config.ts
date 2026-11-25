@@ -54,6 +54,12 @@ export const links: LinkItem[] = [
     url: 'https://mutsumi.moe',
     description: 'AI全栈大手子，🐧掌管木子米的神',
     logo: '/img/links/hill.jpg',
+  },
+  {
+    name: 'GamerNoTitle',
+    url: 'https://bili33.top',
+    description: 'AD，军爷，强大的网安老资历',
+    logo: '/img/links/GamerNoTitle.jpg',
   }
 ]
 
