@@ -181,6 +181,48 @@ a {
   border: 1px solid var(--kdr-border);
 }
 
+/* ------------------------------------------------------------------ 内联图标 */
+
+/*
+ * 用 CSS mask 而不是 <img>：遮罩只取形状，颜色由 currentColor 决定，
+ * 因此图标会自动跟随正文颜色，常规/夜间模式无需两套文件。
+ * 用法：<span class="icon icon--wechat" role="img" aria-label="微信"></span>
+ */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.3em;
+  vertical-align: -0.12em;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.icon--home { --icon: url('/icons/home.svg'); }
+.icon--about { --icon: url('/icons/about.svg'); }
+.icon--article { --icon: url('/icons/article.svg'); }
+.icon--archive { --icon: url('/icons/archive.svg'); }
+.icon--links { --icon: url('/icons/links.svg'); }
+.icon--guestbook { --icon: url('/icons/guestbook.svg'); }
+.icon--sun { --icon: url('/icons/sun.svg'); }
+.icon--moon { --icon: url('/icons/moon.svg'); }
+.icon--github { --icon: url('/icons/github.svg'); }
+.icon--bilibili { --icon: url('/icons/bilibili.svg'); }
+.icon--wechat { --icon: url('/icons/wechat.svg'); }
+.icon--qq { --icon: url('/icons/qq.svg'); }
+
+/* 图标 + 文字组成的链接：间距交给 gap，避免和 .icon 的右边距叠加 */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.icon-link .icon {
+  margin-right: 0;
+}
+
 /* ------------------------------------------------------------------ 页脚 */
 
 .site-footer {

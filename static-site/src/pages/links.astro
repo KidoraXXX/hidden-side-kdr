@@ -13,6 +13,12 @@ import { links, site } from '../config'
           <a class="link-card" href={link.url} target="_blank" rel="noopener noreferrer">
             {link.logo ? (
               <img class="logo" src={link.logo} alt={link.name} />
+            ) : link.icon ? (
+              <span
+                class:list={['logo', 'logo--icon', 'icon', `icon--${link.icon}`]}
+                role="img"
+                aria-label={link.name}
+              ></span>
             ) : (
               <div class="logo logo--empty">{link.name.slice(0, 1)}</div>
             )}
@@ -65,6 +71,18 @@ import { links, site } from '../config'
     background: var(--kdr-placeholder-bg);
     color: var(--kdr-text-soft);
     font-size: 1.05rem;
+  }
+
+  /* 用图标类的友链头像：40px 盒子里居中放 26px 图标，颜色跟随主题 */
+  .logo--icon {
+    display: inline-block;
+    background-color: var(--kdr-text);
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: 26px 26px;
+    mask-size: 26px 26px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
   }
 
   .body {

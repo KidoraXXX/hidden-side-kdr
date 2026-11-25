@@ -17,12 +17,32 @@ export interface LinkItem {
   name: string
   url: string
   description?: string
+  /** 图片地址；与 icon 二选一 */
   logo?: string
+  /** public/icons 下的图标名，如 github、bilibili */
+  icon?: string
 }
 
 /** 友链。静态版没有数据库，直接在这里维护。 */
 export const links: LinkItem[] = [
-  { name: 'GitHub', url: 'https://github.com', description: '代码托管平台' },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/KidoraXXX',
+    description: 'KDR的github主页',
+    icon: 'github',
+  },
+  {
+    name: 'KdRefrain',
+    url: 'https://kdrefrain.top',
+    description: 'KDR的blog主页',
+    logo: '/img/links/CreatorAvatar.webp',
+  },
+  {
+    name: 'dayDReam',
+    url: 'https://dr-blog.top.com',
+    description: 'CTF大佬DR',
+    logo: '/img/links/dayDReam.webp',
+  }
 ]
 
 /**

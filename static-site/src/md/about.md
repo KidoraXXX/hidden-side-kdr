@@ -23,7 +23,7 @@ OK，这里是KDR。
 软件工程大学生，主要成分**车万+舞萌+舟**。   
 推的动漫角色有**帕秋莉·诺蕾姬**和**樱羽艾玛**，紫粉白色系爱好者。  
 喜欢**电子音乐，术力口，音游，galgame，解谜游戏**。  
-欢迎大家找我玩:  V:`PatchouRay`，Q:`3490028374`，b站唯一id:`KidoraXXX`
+欢迎大家找我玩：<span class="icon icon--wechat" role="img" aria-label="微信"></span>V：`PatchouRay`，<span class="icon icon--qq" role="img" aria-label="QQ"></span>Q：`3490028374`，<span class="icon icon--bilibili" role="img" aria-label="B站"></span>B站：`KidoraXXX`
 
 学了点web开发的皮毛。然后我开始想要有个自己的博客。  
 因为搓出一个网站真的很帅啊。  

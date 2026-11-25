@@ -3,12 +3,12 @@ import { site } from '../config'
 
 const path = Astro.url.pathname
 const navItems = [
-  { path: '/', label: '主页' },
-  { path: '/about', label: '关于' },
-  { path: '/articles', label: '文章' },
-  { path: '/archive', label: '归档' },
-  { path: '/links', label: '友链' },
-  { path: '/guestbook', label: '留言' },
+  { path: '/', label: '主页', icon: 'home' },
+  { path: '/about', label: '关于', icon: 'about' },
+  { path: '/articles', label: '文章', icon: 'article' },
+  { path: '/archive', label: '归档', icon: 'archive' },
+  { path: '/links', label: '友链', icon: 'links' },
+  { path: '/guestbook', label: '留言', icon: 'guestbook' },
 ]
 
 const isActive = (itemPath: string) =>
@@ -21,16 +21,21 @@ const isActive = (itemPath: string) =>
 </header>
 
 <nav class="nav">
-  {
-    navItems.map((item) => (
-      <a
-        href={item.path}
-        class:list={['nav__link', { 'nav__link--active': isActive(item.path) }]}
-      >
-        {item.label}
-      </a>
-    ))
-  }
+  <div class="nav__links">
+    {
+      navItems.map((item) => (
+        <a
+          href={item.path}
+          class:list={['nav__link', { 'nav__link--active': isActive(item.path) }]}
+        >
+          <span
+            class:list={['icon', 'nav__icon', `icon--${item.icon}`]}
+            aria-hidden="true"
+          ></span>{item.label}
+        </a>
+      ))
+    }
+  </div>
 
   <button
     id="kdr-theme-toggle"
@@ -39,8 +44,14 @@ const isActive = (itemPath: string) =>
     aria-label="切换夜间模式"
     title="切换夜间模式"
   >
-    <span class="theme-toggle__label theme-toggle__label--to-dark">夜间</span>
-    <span class="theme-toggle__label theme-toggle__label--to-light">日间</span>
+    <span class="theme-toggle__label theme-toggle__label--to-dark">
+      <span class="icon icon--moon" aria-hidden="true"></span>
+      <span class="theme-toggle__text">夜间</span>
+    </span>
+    <span class="theme-toggle__label theme-toggle__label--to-light">
+      <span class="icon icon--sun" aria-hidden="true"></span>
+      <span class="theme-toggle__text">日间</span>
+    </span>
   </button>
 </nav>
 
@@ -103,12 +114,19 @@ const isActive = (itemPath: string) =>
 
   .nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
+    align-items: center;
+    gap: 8px;
     padding: 0 16px;
     background: var(--kdr-surface);
     border-bottom: 1px solid var(--kdr-border);
+  }
+
+  .nav__links {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
   }
 
   .nav__link {
@@ -128,9 +146,18 @@ const isActive = (itemPath: string) =>
     border-bottom-color: var(--kdr-text);
   }
 
+  .nav__icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.35em;
+    vertical-align: -0.12em;
+  }
+
   .theme-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
     align-self: center;
-    margin-left: 6px;
     padding: 4px 11px;
     border: 1px solid var(--kdr-border);
     border-radius: 999px;
@@ -146,6 +173,18 @@ const isActive = (itemPath: string) =>
   .theme-toggle:hover {
     color: var(--kdr-text);
     border-color: var(--kdr-hover-border);
+  }
+
+  .theme-toggle__label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .theme-toggle .icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.35em;
+    vertical-align: -0.12em;
   }
 
   /* 默认显示「夜间」，切到深色后显示「日间」 */
@@ -174,6 +213,15 @@ const isActive = (itemPath: string) =>
     .theme-toggle {
       padding: 3px 9px;
       font-size: 0.75rem;
+    }
+
+    /* 窄屏只留图标，避免和导航文字抢空间 */
+    .theme-toggle__text {
+      display: none;
+    }
+
+    .theme-toggle .icon {
+      margin-right: 0;
     }
   }
 </style>
